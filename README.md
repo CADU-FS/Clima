@@ -1,2 +1,2 @@
-# Previs-o-do-tempo
+# Clima
 Projeto para treinar font-end completo, em destaque o consumo de APIs externas
