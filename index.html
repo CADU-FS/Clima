@@ -6,12 +6,20 @@
   <title>Clima</title>
 
   <link rel="stylesheet" href="style/mobile.css">
+  <script src="https://kit.fontawesome.com/72c8ee24a1.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <main>
+    <video autoplay muted loop id="bg-video">
+        <source src="media/video-from-rawpixel-id-16958055-sd.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos.
+    </video>
+
     <section id="search-location">
-      <input type="search" name="location-input" id="location-input">
-      <input type="button" value="Pesquisar">
+      <input type="search" name="location-input" id="location-input" placeholder="Pesquisar local">
+      <button>
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
     </section>
     <section id="today-info">
       <h1 id="location"></h1>
@@ -23,5 +31,7 @@
 
     </section>
   </main>
+
+  <script src=""></script>
 </body>
 </html>
