@@ -20,7 +20,7 @@
 body {
   height: 100vh;
   width: 100vw;
-  
+  font-family: var(--font1);
 }
 
 main {
@@ -51,7 +51,6 @@ video {
   padding: 5px;
   border: none;
   border-radius: 5px;
-  font-family: var(--font1);
   font-size: 0.9em;
   color: white;
   background-color: #ffffff5b;
@@ -80,4 +79,95 @@ button:hover {
 button:active {
   transform: scale(0.9);
   background-color: var(--color2);
+}
+
+#today-info {
+  background-color: #80808069;
+  color: white;
+}
+
+#location-group {
+  display: flex;
+}
+
+#location-icon-span { /* Pode voltar para span */
+  display: grid;
+  align-content: center;
+  justify-content: center;
+}
+
+#location-icon-span > i {
+  /* font-size: 1.5em; */
+}
+
+h1 {
+  font-size: 1em;
+}
+
+#temperature-area {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  /* gap: 10px; */
+}
+
+#temperature {
+  font-size: 4em;
+  font-weight: normal;
+}
+
+#temperature::after {
+  content: "°C";
+}
+
+#apparent-temperature-area > p {
+  font-size: 0.85em;
+}
+
+#apparent-temperature-area > h2 {
+  font-size: 1em;
+  text-align: right;
+}
+
+#apparent-temperature-area > h2::after {
+  content: "°C";
+}
+
+.others-info {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+}
+
+.wind-speed::before {
+  content: "Vel. vento: ";
+}
+
+.wind-speed::after {
+  content: "Km/h";
+}
+
+.relative-humidity::before {
+  content: "Umidade rel.: ";
+}
+
+.relative-humidity::after {
+  content: "%";
+}
+
+.precipitation::before {
+  content: "Precipitação: ";
+}
+
+.precipitation::after {
+  content: "mm";
+}
+
+.rain::before {
+  content: "Chuva: ";
+}
+
+.rain::after {
+  content: "mm";
 }

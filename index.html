@@ -21,10 +21,29 @@
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
     </section>
+
     <section id="today-info">
-      <h1 id="location"></h1>
+      <div id="location-group">
+        <span id="location-icon-span">
+          <i class="fa-solid fa-location-dot"></i>
+        </span>
+        <h1 id="location">Bacabal</h1>
+      </div>
       <div id="weather-area">
-        <h2></h2>
+        <div id="temperature-area">
+          <h2 id="temperature">32</h2>
+          <div id="apparent-temperature-area">
+            <p>Temp. aparente:</p>
+            <h2 id="apparent-temperature">35</h2>
+          </div>
+        </div>
+
+        <div class="others-info">
+          <p class="wind-speed">10</p>
+          <p class="relative-humidity">65</p>
+          <p class="precipitation">50</p>
+          <p class="rain">10</p>
+        </div>
       </div>
     </section>
     <section id="weather-forecast">
@@ -32,6 +51,6 @@
     </section>
   </main>
 
-  <script src=""></script>
+  <script src="script.js"></script>
 </body>
 </html>
