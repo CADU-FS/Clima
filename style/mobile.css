@@ -28,6 +28,14 @@ main {
   width: 100%;
 }
 
+span#video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #0000005b;
+  z-index: -1;
+}
+
 video {
   position: absolute;
   top: 50%;
@@ -36,7 +44,7 @@ video {
   height: 100%;
   transform: translate(-50%, -50%);
   object-fit: cover;
-  z-index: -1;
+  z-index: -2;
 }
 
 #search-location {
@@ -82,12 +90,14 @@ button:active {
 }
 
 #today-info {
-  background-color: #80808069;
+  margin-top: 30px;
+  padding: 10px;
   color: white;
 }
 
 #location-group {
   display: flex;
+  gap: 5px;
 }
 
 #location-icon-span { /* Pode voltar para span */
@@ -97,7 +107,7 @@ button:active {
 }
 
 #location-icon-span > i {
-  /* font-size: 1.5em; */
+  font-size: 0.8em;
 }
 
 h1 {
@@ -108,7 +118,6 @@ h1 {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  /* gap: 10px; */
 }
 
 #temperature {
@@ -138,36 +147,33 @@ h1 {
   grid-auto-flow: column;
   grid-template-columns: auto auto;
   grid-template-rows: auto auto;
+  justify-items: center;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.wind-speed::before {
-  content: "Vel. vento: ";
+.others-info-item {
+  display: flex;
+  gap: 5px;
+}
+
+.others-info-item > i {
+  text-shadow: 0 0 2px black;
+  color: var(--color3);
 }
 
 .wind-speed::after {
-  content: "Km/h";
-}
-
-.relative-humidity::before {
-  content: "Umidade rel.: ";
+  content: " Km/h";
 }
 
 .relative-humidity::after {
-  content: "%";
-}
-
-.precipitation::before {
-  content: "Precipitação: ";
+  content: " %";
 }
 
 .precipitation::after {
-  content: "mm";
+  content: " mm";
 }
 
-.rain::before {
-  content: "Chuva: ";
-}
-
-.rain::after {
-  content: "mm";
+.pressure::after {
+  content: " hPa";
 }

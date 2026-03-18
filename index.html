@@ -10,8 +10,9 @@
 </head>
 <body>
   <main>
+    <span id="video"></span>
     <video autoplay muted loop id="bg-video">
-        <source src="media/video-from-rawpixel-id-16958055-sd.mp4" type="video/mp4">
+        <source src="media/video-from-rawpixel-id-17023856-sd.mp4" type="video/mp4">
         Seu navegador não suporta vídeos.
     </video>
 
@@ -31,18 +32,30 @@
       </div>
       <div id="weather-area">
         <div id="temperature-area">
-          <h2 id="temperature">32</h2>
+          <h2 id="temperature">-11</h2>
           <div id="apparent-temperature-area">
             <p>Temp. aparente:</p>
-            <h2 id="apparent-temperature">35</h2>
+            <h2 id="apparent-temperature">-15</h2>
           </div>
         </div>
 
         <div class="others-info">
-          <p class="wind-speed">10</p>
-          <p class="relative-humidity">65</p>
-          <p class="precipitation">50</p>
-          <p class="rain">10</p>
+          <div class="others-info-item">
+            <i class="fa-solid fa-wind"></i>
+            <p class="wind-speed">10</p>
+          </div>
+          <div class="others-info-item">
+            <i class="fa-solid fa-droplet"></i>
+            <p class="relative-humidity">65</p>
+          </div>
+          <div class="others-info-item">
+            <i class="fa-solid fa-cloud-showers-heavy"></i>
+            <p class="precipitation">50</p>
+          </div>
+          <div class="others-info-item">
+            <i class="fa-solid fa-gauge-high"></i>
+            <p class="pressure">10</p>
+          </div>
         </div>
       </div>
     </section>
