@@ -21,6 +21,7 @@ body {
   height: 100vh;
   width: 100vw;
   font-family: var(--font1);
+  color: white;
 }
 
 main {
@@ -91,7 +92,7 @@ button:active {
 
 #today-info {
   margin-top: 30px;
-  padding: 10px;
+  padding: 15px;
   color: white;
 }
 
@@ -121,7 +122,7 @@ h1 {
 }
 
 #temperature {
-  font-size: 4em;
+  font-size: 5em;
   font-weight: normal;
 }
 
@@ -130,7 +131,7 @@ h1 {
 }
 
 #apparent-temperature-area > p {
-  font-size: 0.85em;
+  font-size: 0.75em;
 }
 
 #apparent-temperature-area > h2 {
@@ -176,4 +177,58 @@ h1 {
 
 .pressure::after {
   content: " hPa";
+}
+
+#weather-forecast {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #b1b1b1a4;
+}
+
+#weather-forecast-header {
+  margin-bottom: 10px;
+}
+
+#weather-forecast-header > h3 {
+  display: inline-block;
+  font-size: 1em;
+}
+
+#weather-forecast-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-forecast-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-top: 1px solid #ffffff60;
+}
+
+.weather-forecast-item > p {
+  flex: 0 0 70px;
+}
+
+.weather-forecast-item div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.item-precipitation p::after {
+  content: "%";
+}
+
+.item-temperature p::after {
+  content: "°";
+}
+
+.weather-forecast-item span {
+  width: 50px;
+  height: 5px;
+  border-radius: 5px;
+  background-image: linear-gradient(to right, var(--color5), var(--color5), var(--color3), var(--color3));
 }
