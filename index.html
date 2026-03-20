@@ -63,11 +63,11 @@
     <section id="weather-forecast">
       <div id="weather-forecast-header">
         <i class="fa-solid fa-calendar"></i>
-        <h3>Previsão para 3 dias</h3>
+        <h3>Previsão para 6 dias</h3>
       </div>
       
       <div id="weather-forecast-area">
-        <div class="weather-forecast-item">
+        <div class="weather-forecast-item item-1 visible">
           <p>Hoje</p>
           <div class="item-precipitation">
             <i class="fa-solid fa-cloud-showers-heavy"></i>
@@ -80,7 +80,7 @@
           </div>
         </div>
 
-        <div class="weather-forecast-item">
+        <div class="weather-forecast-item item-2 visible">
           <p>Amanhã</p>
           <div class="item-precipitation">
             <i class="fa-solid fa-cloud-showers-heavy"></i>
@@ -93,7 +93,7 @@
           </div>
         </div>
 
-        <div class="weather-forecast-item">
+        <div class="weather-forecast-item item-3 visible">
           <p>Domingo</p>
           <div class="item-precipitation">
             <i class="fa-solid fa-cloud-showers-heavy"></i>
@@ -105,6 +105,52 @@
             <p class="min-temperature">10</p>
           </div>
         </div>
+
+        <div class="weather-forecast-item item-4 invisible">
+          <p>Segunda</p>
+          <div class="item-precipitation">
+            <i class="fa-solid fa-cloud-showers-heavy"></i>
+            <p class="precipitation-chance">80</p>
+          </div>
+          <div class="item-temperature">
+            <p class="max-temperature">25</p>
+            <span></span>
+            <p class="min-temperature">15</p>
+          </div>
+        </div>
+
+        <div class="weather-forecast-item item-5 invisible">
+          <p>Terça</p>
+          <div class="item-precipitation">
+            <i class="fa-solid fa-cloud-showers-heavy"></i>
+            <p class="precipitation-chance">60</p>
+          </div>
+          <div class="item-temperature">
+            <p class="max-temperature">28</p>
+            <span></span>
+            <p class="min-temperature">21</p>
+          </div>
+        </div>
+
+        <div class="weather-forecast-item item-6 invisible">
+          <p>Quarta</p>
+          <div class="item-precipitation">
+            <i class="fa-solid fa-cloud-showers-heavy"></i>
+            <p class="precipitation-chance">40</p>
+          </div>
+          <div class="item-temperature">
+            <p class="max-temperature">30</p>
+            <span></span>
+            <p class="min-temperature">25</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="full-forecast">
+        <a href="#">
+          <p>Mostrar a previsão completa</p>
+          <i class="fa-solid fa-angle-down"></i>
+        </a>
       </div>
     </section>
   </main>
