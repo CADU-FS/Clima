@@ -26,14 +26,8 @@ body {
   color: white;
 }
 
-main {
-  flex: 1;
-  position: relative;
-  height: 100%;
-}
-
 span#video {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   background-color: #0000005b;
@@ -93,9 +87,17 @@ button:active {
   background-color: var(--color2);
 }
 
+main {
+  flex: 1;
+  position: relative;
+  margin: 15px;
+  height: 100%;
+}
+
 #today-info {
-  margin-top: 30px;
+  margin: 30px auto 0 auto;
   padding: 15px;
+  max-width: 600px;
   color: white;
 }
 
@@ -104,7 +106,7 @@ button:active {
   gap: 5px;
 }
 
-#location-icon-span { /* Pode voltar para span */
+#location-icon-span {
   display: grid;
   align-content: center;
   justify-content: center;
@@ -183,8 +185,9 @@ h1 {
 }
 
 #weather-forecast {
-  margin: 5px;
+  margin: auto;
   padding: 10px;
+  max-width: 500px;
   border-radius: 10px;
   background-color: #b1b1b1a4;
 }
@@ -253,4 +256,20 @@ a {
   color: white;
 }
 
-/* Terminar a config do mostrar a previsão completa, setinhas */
+@media screen and (min-width: 500px) {
+  #temperature-area {
+    justify-content: space-around;
+  }
+
+  #temperature {
+    font-size: 7em;
+  }
+
+  #apparent-temperature-area > p {
+    font-size: 1em;
+  }
+
+  #apparent-temperature-area > h2 {
+    font-size: 1.25em;
+  }
+}
