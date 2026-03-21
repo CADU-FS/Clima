@@ -1,1 +1,47 @@
 @charset "UTF-8";
+
+main {
+  display: grid;
+  grid-template: auto auto / 1fr 600px;
+}
+
+#today-info {
+  grid-column: 2;
+  width: 100%;
+  max-width: 90%;
+}
+
+#weather-forecast {
+  grid-column: 1 / 3;
+  width: 100%;
+  max-width: 90%;
+  padding: 20px;
+}
+
+#weather-forecast-area {
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.weather-forecast-item {
+  flex-direction: column;
+  gap: 15px;
+  border: 1px solid var(--border-bg);
+  border-radius: 10px;
+  background-color: var(--color2);
+  box-shadow: 0 0 1px var(--color1);
+}
+
+.invisible {
+  display: flex;
+}
+
+.weather-forecast-item > p {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.full-forecast {
+  display: none;
+}
