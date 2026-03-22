@@ -26,18 +26,29 @@ function getInput() {
 // Dados de retorno da requisição
 function getGeocodingData(locationInput) {
   geocodingRequestHttp(
-    `https://geocoding-api.open-meteo.com/v1/search?name=${locationInput}&count=1&language=pt&format=json`,
-    (data) => {
-      // console.log(data);
-      setLocationTextInDOM(data);
-    }
-  );
+    `https://geocoding-api.open-meteo.com/v1/search?name=${locationInput}&count=1&language=pt&format=json`
+  )
+  .then((data) => {
+    console.log(data);
+    setLocationTextInDOM(data);
+  })
+  .catch((err) => {
+    console.log(err, err.data)
+  });
 }
 
 // Requisições da API de Geocoding
-function geocodingRequestHttp(url, callback) {
-  fetch(url)
+function geocodingRequestHttp(url) {
+  return fetch(url)
   .then((response) => {
+    if(!response.ok) {
+      return response.json().then((err) => {
+        const error = new Error("Something went wrong!");
+        error.data = err;
+        throw error;
+      });
+    }
+
     return response.json();
   })
   .then((response) => {
@@ -48,7 +59,7 @@ function geocodingRequestHttp(url, callback) {
       longitude: response.results[0].longitude
     };
 
-    callback(locationInfo);
+    return locationInfo;
   });
 }
 
