@@ -1,5 +1,5 @@
 const locationDisplay = document.querySelector('#location');
-const inputDisplay = document.querySelector('#location-input');
+let inputDisplay;
 
 const temperature = document.querySelector('#temperature');
 const apparentTemperature = document.querySelector('#apparent-temperature');
@@ -16,4 +16,42 @@ const item1 = {
   precipitationChance: document.querySelector('.item-1 .precipitation-chance'),
   maxTemperature: document.querySelector('.item-1 .max-temperature'),
   minTemperature: document.querySelector('.item-1 .min-temperature')
+}
+
+function getInput() {
+  inputDisplay = document.querySelector('#location-input').value;
+  getGeocodingData(inputDisplay);
+}
+
+// Dados de retorno da requisição
+function getGeocodingData(locationInput) {
+  geocodingRequestHttp(
+    `https://geocoding-api.open-meteo.com/v1/search?name=${locationInput}&count=1&language=pt&format=json`,
+    (data) => {
+      // console.log(data);
+      setLocationTextInDOM(data);
+    }
+  );
+}
+
+// Requisições da API de Geocoding
+function geocodingRequestHttp(url, callback) {
+  fetch(url)
+  .then((response) => {
+    return response.json();
+  })
+  .then((response) => {
+    const locationInfo = {
+      admin1: response.results[0].admin1,
+      admin2: response.results[0].admin2,
+      latitude: response.results[0].latitude,
+      longitude: response.results[0].longitude
+    };
+
+    callback(locationInfo);
+  });
+}
+
+function setLocationTextInDOM() {
+
 }
