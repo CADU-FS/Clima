@@ -29,8 +29,8 @@ function getGeocodingData(locationInput) {
     `https://geocoding-api.open-meteo.com/v1/search?name=${locationInput}&count=1&language=pt&format=json`
   )
   .then((data) => {
-    console.log(data);
     setLocationTextInDOM(data.admin1, data.admin2, data.admin3, data.admin4, data.country);
+    getWeatherForecastData(data.latitude, data.longitude);
   })
   .catch((err) => {
     console.log(err, err.data)
@@ -52,7 +52,6 @@ function geocodingRequestHttp(url) {
     return response.json();
   })
   .then((response) => {
-    console.log(response)
     const locationInfo = {
       admin1: response.results[0].admin1,
       admin2: response.results[0].admin2,
@@ -82,4 +81,40 @@ function setLocationTextInDOM(admin1, admin2, admin3, admin4, country) {
   } else {
     locationDisplay.textContent = 'Local não encontrado';
   }
+}
+
+function getWeatherForecastData(latitude, longitude) {
+  weatherForecastRequestHttp(
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,precipitation,surface_pressure&timezone=auto`
+  )
+  .then((data) => {
+    const currentInfo = data[0];
+    const forecastInfo = data[1];
+  })
+}
+
+function weatherForecastRequestHttp(url) {
+  return fetch(url)
+  .then((response) => {
+    return response.json();
+  })
+  .then((response) => {
+    const currentInfo = {
+      isDay: response.current.is_day,
+      temperature: response.current.temperature_2m,
+      apparentTemperature: response.current.apparent_temperature,
+      windSpeed: response.current.wind_speed_10m,
+      humidity: response.current.relative_humidity_2m,
+      precipitation: response.current.precipitation,
+      pressure: response.current.surface_pressure
+    };
+    const forecastInfo = {
+      day: response.daily.time,
+      maxTemperature: response.daily.temperature_2m_max,
+      minTemperature: response.daily.temperature_2m_min,
+      precipitation: response.daily.precipitation_probability_max,
+    };
+
+    return [currentInfo, forecastInfo];
+  });
 }
