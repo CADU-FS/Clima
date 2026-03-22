@@ -1,5 +1,5 @@
-const locationDisplay = document.querySelector('#location');
 let inputDisplay;
+const locationDisplay = document.querySelector('#location');
 
 const temperature = document.querySelector('#temperature');
 const apparentTemperature = document.querySelector('#apparent-temperature');
@@ -30,7 +30,7 @@ function getGeocodingData(locationInput) {
   )
   .then((data) => {
     console.log(data);
-    setLocationTextInDOM(data);
+    setLocationTextInDOM(data.admin1, data.admin2, data.admin3, data.admin4, data.country);
   })
   .catch((err) => {
     console.log(err, err.data)
@@ -52,9 +52,13 @@ function geocodingRequestHttp(url) {
     return response.json();
   })
   .then((response) => {
+    console.log(response)
     const locationInfo = {
       admin1: response.results[0].admin1,
       admin2: response.results[0].admin2,
+      admin3: response.results[0].admin3,
+      admin4: response.results[0].admin4,
+      country: response.results[0].country,
       latitude: response.results[0].latitude,
       longitude: response.results[0].longitude
     };
@@ -63,6 +67,19 @@ function geocodingRequestHttp(url) {
   });
 }
 
-function setLocationTextInDOM() {
-
+function setLocationTextInDOM(admin1, admin2, admin3, admin4, country) {
+  locationDisplay.textContent = '';
+  if(admin4) {
+    locationDisplay.textContent = `${admin4} - ${admin1}`;
+  } else if(admin3) {
+    locationDisplay.textContent = `${admin3} - ${admin1}`;
+  } else if(admin2) {
+    locationDisplay.textContent = `${admin2} - ${admin1}`;
+  } else if(admin1) {
+    locationDisplay.textContent = `${admin1} - ${country}`;
+  } else if(country) {
+    locationDisplay.textContent = `${country}`;
+  } else {
+    locationDisplay.textContent = 'Local não encontrado';
+  }
 }
