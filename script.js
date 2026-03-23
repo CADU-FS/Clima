@@ -11,19 +11,12 @@ const pressure = document.querySelector('.pressure');
 
 const days = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
 
-const item1 = {
-  name: document.querySelector('.item-1 > p'),
-  precipitationChance: document.querySelector('.item-1 .precipitation-chance'),
-  maxTemperature: document.querySelector('.item-1 .max-temperature'),
-  minTemperature: document.querySelector('.item-1 .min-temperature')
-}
-
 function getInput() {
   inputDisplay = document.querySelector('#location-input').value;
   getGeocodingData(inputDisplay);
 }
 
-// Dados de retorno da requisição
+// Dados de retorno da requisição da API de Geocoding
 function getGeocodingData(locationInput) {
   geocodingRequestHttp(
     `https://geocoding-api.open-meteo.com/v1/search?name=${locationInput}&count=1&language=pt&format=json`
@@ -37,7 +30,7 @@ function getGeocodingData(locationInput) {
   });
 }
 
-// Requisições da API de Geocoding
+// Requisição da API de Geocoding
 function geocodingRequestHttp(url) {
   return fetch(url)
   .then((response) => {
@@ -83,19 +76,24 @@ function setLocationTextInDOM(admin1, admin2, admin3, admin4, country) {
   }
 }
 
+// Dados de retorno da requisição da API de previsão do tempo
 function getWeatherForecastData(latitude, longitude) {
   weatherForecastRequestHttp(
-    `https://api.open-meteo.com/v/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,precipitation,surface_pressure&timezone=auto`
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,precipitation,surface_pressure&timezone=auto&forecast_days=8`
   )
   .then((data) => {
-    const currentInfo = data[0];
-    const forecastInfo = data[1];
+    const time = data[0];
+    const currentInfo = data[1];
+    const forecastInfo = data[2];
+    
+    setWeatherInfoInDOM(time, currentInfo, forecastInfo);
   })
   .catch((err) => {
     console.log(err, err.data);
   });
 }
 
+// Requisição da API de previsão do tempo
 function weatherForecastRequestHttp(url) {
   return fetch(url)
   .then((response) => {
@@ -110,6 +108,7 @@ function weatherForecastRequestHttp(url) {
     return response.json();
   })
   .then((response) => {
+    const time = new Date(response.current.time).getDay();
     const currentInfo = {
       isDay: response.current.is_day,
       temperature: response.current.temperature_2m,
@@ -126,6 +125,23 @@ function weatherForecastRequestHttp(url) {
       precipitation: response.daily.precipitation_probability_max,
     };
 
-    return [currentInfo, forecastInfo];
+    return [time, currentInfo, forecastInfo];
   });
+}
+
+function setWeatherInfoInDOM(time, currentInfo, forecastInfo) {
+  temperature.textContent = currentInfo.temperature;
+  apparentTemperature.textContent = currentInfo.apparentTemperature;
+  windSpeed.textContent = currentInfo.windSpeed;
+  humidity.textContent = currentInfo.humidity;
+  precipitation.textContent = currentInfo.precipitation;
+  pressure.textContent = currentInfo.pressure;
+
+  for(let i = 1; i < 9; i++) {
+    document.querySelector(`.item-${i} > p`).textContent = 
+      i < 3 ? document.querySelector(`.item-${i} > p`).textContent : days[(time + i - 1) % 7];
+    document.querySelector(`.item-${i} .precipitation-chance`).textContent = Math.round(forecastInfo.precipitation[i - 1]);
+    document.querySelector(`.item-${i} .max-temperature`).textContent = Math.round(forecastInfo.maxTemperature[i - 1]);
+    document.querySelector(`.item-${i} .min-temperature`).textContent = Math.round(forecastInfo.minTemperature[i - 1]);
+  }
 }
