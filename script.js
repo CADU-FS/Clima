@@ -85,17 +85,28 @@ function setLocationTextInDOM(admin1, admin2, admin3, admin4, country) {
 
 function getWeatherForecastData(latitude, longitude) {
   weatherForecastRequestHttp(
-    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,precipitation,surface_pressure&timezone=auto`
+    `https://api.open-meteo.com/v/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,precipitation,surface_pressure&timezone=auto`
   )
   .then((data) => {
     const currentInfo = data[0];
     const forecastInfo = data[1];
   })
+  .catch((err) => {
+    console.log(err, err.data);
+  });
 }
 
 function weatherForecastRequestHttp(url) {
   return fetch(url)
   .then((response) => {
+    if(!response.ok) {
+      return response.json().then((err) => {
+        const error = new Error('Something went worng!');
+        error.data = err;
+        throw error;
+      })
+    }
+
     return response.json();
   })
   .then((response) => {
