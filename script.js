@@ -1,3 +1,6 @@
+const videoDisplay = document.querySelector('#bg-video');
+const videoSrc = document.querySelector('#video-src');
+
 let inputDisplay;
 const locationDisplay = document.querySelector('#location');
 
@@ -79,13 +82,14 @@ function setLocationTextInDOM(admin1, admin2, admin3, admin4, country) {
 // Dados de retorno da requisição da API de previsão do tempo
 function getWeatherForecastData(latitude, longitude) {
   weatherForecastRequestHttp(
-    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,precipitation,surface_pressure&timezone=auto&forecast_days=8`
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,precipitation,surface_pressure,weather_code&timezone=auto&forecast_days=8`
   )
   .then((data) => {
     const time = data[0];
     const currentInfo = data[1];
     const forecastInfo = data[2];
     
+    setBackgroundVideo(currentInfo.isDay, currentInfo.weatherCode);
     setWeatherInfoInDOM(time, currentInfo, forecastInfo);
   })
   .catch((err) => {
@@ -111,6 +115,7 @@ function weatherForecastRequestHttp(url) {
     const time = new Date(response.current.time).getDay();
     const currentInfo = {
       isDay: response.current.is_day,
+      weatherCode: response.current.weather_code,
       temperature: response.current.temperature_2m,
       apparentTemperature: response.current.apparent_temperature,
       windSpeed: response.current.wind_speed_10m,
@@ -127,6 +132,25 @@ function weatherForecastRequestHttp(url) {
 
     return [time, currentInfo, forecastInfo];
   });
+}
+
+function setBackgroundVideo(isDay, weatherCode) {
+  console.log(weatherCode);
+  let newVideo = '';
+  if(weatherCode >= 95) {
+    newVideo = 'media/tempestade.mp4';
+  } else if(weatherCode >= 51 && weatherCode <= 67 || weatherCode >= 80 && weatherCode <= 82) {
+    newVideo = 'media/chuva.mp4';
+  } else if(isDay) {
+    newVideo = 'media/dia.mp4';
+  } else {
+    newVideo = 'media/noite.mp4';
+  }
+
+  if(!videoSrc.src.includes(newVideo)) {
+    videoSrc.src = newVideo;
+    videoDisplay.load();
+  }
 }
 
 function setWeatherInfoInDOM(time, currentInfo, forecastInfo) {
