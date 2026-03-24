@@ -12,6 +12,11 @@ const humidity = document.querySelector('.relative-humidity');
 const precipitation = document.querySelector('.precipitation');
 const pressure = document.querySelector('.pressure');
 
+const fullInfoButton = document.querySelector('#full-info-button');
+const fullInfoText = document.querySelector('#full-info-text');
+const fullInfoArrow = document.querySelector('#full-info-arrow');
+fullInfoButton.setAttribute('class', 'on');
+
 const days = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
 
 function getInput() {
@@ -167,5 +172,23 @@ function setWeatherInfoInDOM(time, currentInfo, forecastInfo) {
     document.querySelector(`.item-${i} .precipitation-chance`).textContent = Math.round(forecastInfo.precipitation[i - 1]);
     document.querySelector(`.item-${i} .max-temperature`).textContent = Math.round(forecastInfo.maxTemperature[i - 1]);
     document.querySelector(`.item-${i} .min-temperature`).textContent = Math.round(forecastInfo.minTemperature[i - 1]);
+  }
+}
+
+function showFullInfo() {
+  if(fullInfoButton.getAttribute('class') == 'on') {
+    for(let i = 4; i < 9; i++) {
+      document.querySelector(`.item-${i}`).setAttribute('class', `weather-forecast-item item-${i} visible`);
+    }
+    fullInfoButton.setAttribute('class', 'off');
+    fullInfoText.textContent = 'Mostrar a previsão resumida';
+    fullInfoArrow.setAttribute('class', 'fa-solid fa-angle-up');
+  } else {
+    for(let i = 4; i < 9; i++) {
+      document.querySelector(`.item-${i}`).setAttribute('class', `weather-forecast-item item-${i} invisible`);
+    }
+    fullInfoButton.setAttribute('class', 'on');
+    fullInfoText.textContent = 'Mostrar a previsão completa';
+    fullInfoArrow.setAttribute('class', 'fa-solid fa-angle-down');
   }
 }
